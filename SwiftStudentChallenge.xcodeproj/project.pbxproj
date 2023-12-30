@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E18E5E72B3FB87100465739 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E18E5E62B3FB87100465739 /* LoginView.swift */; };
+		2E18E5E92B3FB87F00465739 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E18E5E82B3FB87F00465739 /* SignUpView.swift */; };
 		2EC8DCDA2B340060009A2021 /* SwiftStudentChallengeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC8DCD92B340060009A2021 /* SwiftStudentChallengeApp.swift */; };
 		2EC8DCDC2B340060009A2021 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC8DCDB2B340060009A2021 /* ContentView.swift */; };
 		2EC8DCDE2B340061009A2021 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EC8DCDD2B340061009A2021 /* Assets.xcassets */; };
@@ -14,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E18E5E62B3FB87100465739 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		2E18E5E82B3FB87F00465739 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		2EC8DCD62B340060009A2021 /* SwiftStudentChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftStudentChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EC8DCD92B340060009A2021 /* SwiftStudentChallengeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftStudentChallengeApp.swift; sourceTree = "<group>"; };
 		2EC8DCDB2B340060009A2021 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -32,6 +36,63 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E18E5DA2B3FB70400465739 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				2EC8DCD92B340060009A2021 /* SwiftStudentChallengeApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		2E18E5DF2B3FB75900465739 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				2E18E5E52B3FB80C00465739 /* Profile */,
+				2E18E5E42B3FB80300465739 /* Authentication */,
+				2E18E5E22B3FB77D00465739 /* Root */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		2E18E5E02B3FB75F00465739 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Components;
+			path = App/Components;
+			sourceTree = "<group>";
+		};
+		2E18E5E22B3FB77D00465739 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				2EC8DCDB2B340060009A2021 /* ContentView.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		2E18E5E32B3FB7CA00465739 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2E18E5E42B3FB80300465739 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				2E18E5E62B3FB87100465739 /* LoginView.swift */,
+				2E18E5E82B3FB87F00465739 /* SignUpView.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		2E18E5E52B3FB80C00465739 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		2EC8DCCD2B340060009A2021 = {
 			isa = PBXGroup;
 			children = (
@@ -51,8 +112,10 @@
 		2EC8DCD82B340060009A2021 /* SwiftStudentChallenge */ = {
 			isa = PBXGroup;
 			children = (
-				2EC8DCD92B340060009A2021 /* SwiftStudentChallengeApp.swift */,
-				2EC8DCDB2B340060009A2021 /* ContentView.swift */,
+				2E18E5DF2B3FB75900465739 /* Core */,
+				2E18E5E02B3FB75F00465739 /* Components */,
+				2E18E5E32B3FB7CA00465739 /* Model */,
+				2E18E5DA2B3FB70400465739 /* App */,
 				2EC8DCDD2B340061009A2021 /* Assets.xcassets */,
 				2EC8DCDF2B340061009A2021 /* Preview Content */,
 			);
@@ -137,6 +200,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E18E5E92B3FB87F00465739 /* SignUpView.swift in Sources */,
+				2E18E5E72B3FB87100465739 /* LoginView.swift in Sources */,
 				2EC8DCDC2B340060009A2021 /* ContentView.swift in Sources */,
 				2EC8DCDA2B340060009A2021 /* SwiftStudentChallengeApp.swift in Sources */,
 			);
