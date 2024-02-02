@@ -10,32 +10,45 @@ import SwiftUI
 struct AreasView: View {
     @State private var showPopUp = false
     @State var nestedAreaColor = Color(.systemBackground)
+    @StateObject var subAreasManager = AuthViewModel()
     @State private var topic: String = ""
     
     let subjects = ["Discrete Structures", "Multivariable Calculus for Engineers", "FWS: Marx, Nietzsche, Freud", "Physics Mechanics and Heat"]
     let title: String
     
-    
-    
     var body: some View{
         VStack{
-            Text(title)
-                .font(.largeTitle)
-                .padding(.leading, 30)
-                .padding(.bottom, 30)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .bold()
-        
-        //display areas 
             
-            ForEach(subjects, id: \.self)  { subject in
-                SubjectBubble(
-                    area: AreaModel(id: "12345", name: subject),
-                    tasks:
-                    [TasksModel(id: UUID(), dueDate: Date.now, priority: 1, name: "Test"),
-                    TasksModel(id: UUID(), dueDate: Date.now, priority: 3, name: "Syllabus")],
-                    bgColor: Color.indigo
-                )
+            HStack{
+                Text(title)
+                    .font(.largeTitle)
+                    .padding(.leading, 30)
+                    .padding(.bottom, 30)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .bold()
+                
+                NavigationLink {
+                    Home()
+                } label: {
+                    Image(systemName: "house")
+                        .font(.system(size: 40, weight: .bold))
+                }
+                .padding(.trailing, 30)
+                .padding(.bottom, 20)
+                .navigationBarBackButtonHidden()
+
+            }
+//              display areas
+            
+            ForEach(subAreasManager.subAreas, id: \.self)  { subject in
+                if (subject.areaUnder == title){
+                    SubjectBubble(
+                        subArea: subject,
+                        tasks: [],
+                        bgColor: Color.fromString(subject.colorStr)
+                    )
+                    .padding(.bottom, 12)
+                }
             }
         
         Button(action: {
@@ -61,8 +74,7 @@ struct AreasView: View {
             ZStack {
                 Color.white
                 VStack {
-                    
-                    Text("New Area")
+                    Text("New Subject")
                         .font(.headline)
                         .padding(.bottom, 10)
                     HStack{
@@ -80,7 +92,7 @@ struct AreasView: View {
                     
                     Button(action: {
                         self.showPopUp = false
-                        //post request to post a new area
+                        subAreasManager.makeSubArea(name: topic, color: nestedAreaColor, areaUnder: title)
                     }, label: {
                         Text("Finish")
                     })

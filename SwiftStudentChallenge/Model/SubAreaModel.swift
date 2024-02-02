@@ -1,17 +1,17 @@
 //
-//  TasksModel.swift
+//  AreaModel.swift
 //  SwiftStudentChallenge
 //
 //  Created by Charles Liggins on 1/8/24.
 //
 
-import Foundation
+import SwiftUI
 
-struct TasksModel: Identifiable, Codable, Hashable {
+struct SubAreaModel: Identifiable, Codable, Hashable {
     var id: String
-    var dueDate: Date
+    var colorStr: String
     var areaUnder: String
-    var priority: Int
     var name: String
-    
 }
+
+

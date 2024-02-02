@@ -8,30 +8,40 @@
 import SwiftUI
 
 struct DetailedAreaView: View {
-    @State private var showPopUp = false
+    @State private var showPopToday = false
     @State var nestedAreaColor = Color(.systemBackground)
     @State private var topic: String = ""
+    @StateObject var tasksManager = AuthViewModel()
+    @State private var selection = "1"
     
+    let priorities = ["1", "2", "3", "4"]
+
     let title: String
     
     var sampleTasks = ["Read Chapter 1 of Textbook", "Complete Lab Report #1", "Complete Syllabus Quiz", "Complete PSET #1", "Read 20 Pages of the Interpolation of Dreams"]
-    var areaArray = ["This", "Is", "Just", "A", "List", "Of", "Names"]
-    
-    
     
     var body: some View {
         NavigationStack{
-        ScrollView(.vertical){
+            ScrollView(.vertical){
                 VStack{
-                    Text(title)
-                        .font(.largeTitle)
-                        .padding(.leading, 30)
-                        .padding(.bottom, 30)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .bold()
+                    HStack{
+                        Text(title)
+                            .font(.largeTitle)
+                            .padding(.leading, 30)
+                            .padding(.bottom, 30)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .bold()
                     
-                    
-                    
+                        NavigationLink {
+                            Home()
+                        } label: {
+                            Image(systemName: "house")
+                                .font(.system(size: 40, weight: .bold))
+                        }
+                        .padding(.trailing, 30)
+                        .padding(.bottom, 20)
+                        .navigationBarBackButtonHidden()
+                    }
                     HStack(alignment: .center){
                         NavigationLink{
                             AreaGoals(title: title)
@@ -62,9 +72,7 @@ struct DetailedAreaView: View {
                                         .padding(.trailing, 40)
                                         .foregroundStyle(Color.gray)
                                 )
-                            
                         }
-                        
                     }
                     
                     Text("Today")
@@ -80,14 +88,15 @@ struct DetailedAreaView: View {
                         .padding(.top, -20)
                         .padding(.trailing, 60)
                     
-                    ForEach(sampleTasks, id: \.self) { task in
-                        TasksBubble(taskName: task, endTime: "11:00PM")
+                    ForEach(tasksManager.tasks, id: \.self) { task in
+                        if (task.areaUnder == title && isDateToday(task.dueDate)){
+                            TasksBubble(task: task)
+                        }
                     }
                     
-                    
-                    
                     Button(action: {
-                        self.showPopUp = true
+                        self.showPopToday = true
+                        
                     }, label: {
                         ZStack{
                             
@@ -105,7 +114,7 @@ struct DetailedAreaView: View {
                         }
                     })
                     
-                    if $showPopUp.wrappedValue {
+                    if $showPopToday.wrappedValue {
                         ZStack {
                             Color.white
                             VStack {
@@ -114,21 +123,31 @@ struct DetailedAreaView: View {
                                     .font(.headline)
                                     .padding(.bottom, 10)
                                 HStack{
-                                    Text("Select Topic")
+                                    Text("Type Name")
                                         .padding(.leading,16)
                                     
                                     Spacer()
                                     
-                                    TextField("Topic", text: $topic)
+                                    TextField("Name", text: $topic)
                                 }
-                                ColorPicker("Select Color", selection: $nestedAreaColor)
-                                    .padding()
+                                HStack{
+                                    Text("Select Priority")
+                                        .padding(.leading,16)
+                                    
+                                    Spacer()
+                                    
+                                    Picker("Priority", selection: $selection) {
+                                        ForEach(priorities, id: \.self) {
+                                            Text($0)
+                                        }
+                                    }
+                                }
                                 
                                 Spacer()
                                 
                                 Button(action: {
-                                    self.showPopUp = false
-                                    //post request to post a new area
+                                    self.showPopToday = false
+                                    tasksManager.makeTasks(name: topic, priority: Int(selection) ?? 1, dueDate: Date(), areaUnder: title)
                                 }, label: {
                                     Text("Finish")
                                 })
@@ -152,64 +171,83 @@ struct DetailedAreaView: View {
                         .padding(.top, -20)
                         .padding(.trailing, 60)
                     
-                    Button(action: {
-                        self.showPopUp = true
-                    }, label: {
-                        ZStack{
-                            
-                            RoundedRectangle(cornerRadius: 20)
-                                .fill(Color.white)
-                                .stroke(.mint, lineWidth: 2)
-                                .frame(width: 300, height: 50)
-                            
-                            HStack{
-                                Image(systemName: "plus.circle")
-                                
-                                Text("Add Upcoming Task")
-                                
-                            }
-                        }
-                    })
-                    
-                    if $showPopUp.wrappedValue {
-                        ZStack {
-                            Color.white
-                            VStack {
-                                
-                                Text("New Area")
-                                    .font(.headline)
-                                    .padding(.bottom, 10)
-                                HStack{
-                                    Text("Select Topic")
-                                        .padding(.leading,16)
-                                    
-                                    Spacer()
-                                    
-                                    TextField("Topic", text: $topic)
-                                }
-                                ColorPicker("Select Color", selection: $nestedAreaColor)
-                                    .padding()
-                                
-                                Spacer()
-                                
-                                Button(action: {
-                                    self.showPopUp = false
-                                    //post request to post a new area
-                                }, label: {
-                                    Text("Finish")
-                                })
-                            }.padding()
-                        }
-                        .pickerStyle(.menu)
-                        .frame(width: 380, height: 200)
-                        .cornerRadius(20).shadow(radius: 20)
-                    }
+//                    Button(action: {
+//                        self.showPopToday = true
+//                    }, label: {
+//                        ZStack{
+//                            
+//                            RoundedRectangle(cornerRadius: 20)
+//                                .fill(Color.white)
+//                                .stroke(.mint, lineWidth: 2)
+//                                .frame(width: 300, height: 50)
+//                            
+//                            HStack{
+//                                Image(systemName: "plus.circle")
+//                                
+//                                Text("Add Upcoming Task")
+//                                
+//                            }
+//                        }
+//                    })
+//                    
+//                    if $showPopToday.wrappedValue {
+//                        ZStack {
+//                            Color.white
+//                            VStack {
+//                                
+//                                Text("New Area")
+//                                    .font(.headline)
+//                                    .padding(.bottom, 10)
+//                                HStack{
+//                                    Text("Select Topic")
+//                                        .padding(.leading,16)
+//                                    
+//                                    Spacer()
+//                                    
+//                                    TextField("Topic", text: $topic)
+//                                }
+//                                ColorPicker("Select Color", selection: $nestedAreaColor)
+//                                    .padding()
+//                                
+//                                Spacer()
+//                                
+//                                Button(action: {
+//                                    self.showPopUp = false
+//                                    //post request to post a new area
+//                                }, label: {
+//                                    Text("Finish")
+//                                })
+//                            }.padding()
+//                        }
+//                        .pickerStyle(.menu)
+//                        .frame(width: 380, height: 200)
+//                        .cornerRadius(20).shadow(radius: 20)
+//                    }
+//                    
+//                    ForEach(tasksManager.tasks, id: \.self) { task in
+//                        if (!isDateFuture(task.dueDate)){
+//                            TasksBubble(taskName: task.name, endTime:                                                 task.dueDate.formatted())
+//                        }
+//                    }
                 }
                 Spacer()
             }
         }
     }
 }
+
+
+func isDateToday(_ date: Date) -> Bool {
+        let calendar = Calendar.current
+        return calendar.isDateInToday(date)
+    }
+
+func isDateFuture(_ date: Date) -> Bool {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let target = calendar.startOfDay(for: date)
+        return today > target
+    }
 
 #Preview {
     DetailedAreaView(title: "DetailedAreaView")

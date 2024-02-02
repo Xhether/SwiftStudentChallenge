@@ -3,4 +3,69 @@
    uuid = "35971A74-495A-4EB0-AFE4-09C719F631D0"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E7130B9A-CAAD-4EF1-9420-7F1157111790"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftStudentChallenge/Model/ViewModel/AuthViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "createUser(withEmail:fullname:password:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "E7130B9A-CAAD-4EF1-9420-7F1157111790 - 410e27b26d463275"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for SwiftStudentChallenge.AuthViewModel.createUser(withEmail: Swift.String, fullname: Swift.String, password: Swift.String) async throws -&gt; ()"
+                  moduleName = "SwiftStudentChallenge"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/charlesliggins/Developer/SwiftStudentChallenge/SwiftStudentChallenge/Model/ViewModel/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "84">
+               </Location>
+               <Location
+                  uuid = "E7130B9A-CAAD-4EF1-9420-7F1157111790 - cb9fcbca785e507b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) await resume partial function for SwiftStudentChallenge.AuthViewModel.createUser(withEmail: Swift.String, fullname: Swift.String, password: Swift.String) async throws -&gt; ()"
+                  moduleName = "SwiftStudentChallenge"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/charlesliggins/Developer/SwiftStudentChallenge/SwiftStudentChallenge/Model/ViewModel/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  uuid = "E7130B9A-CAAD-4EF1-9420-7F1157111790 - 78308a7417157673"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for SwiftStudentChallenge.AuthViewModel.createUser(withEmail: Swift.String, fullname: Swift.String, password: Swift.String) async throws -&gt; ()"
+                  moduleName = "SwiftStudentChallenge"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/charlesliggins/Developer/SwiftStudentChallenge/SwiftStudentChallenge/Model/ViewModel/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "76">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

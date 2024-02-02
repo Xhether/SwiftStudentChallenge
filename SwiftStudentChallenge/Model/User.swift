@@ -6,11 +6,15 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct User: Identifiable, Codable {
     let id: String
     let fullname: String
+    //let pfp:Image
     let email: String
+    let tasks: [TasksModel]
+    let areas: [AreaModel]
     
     //config with default settings and such
 
@@ -25,5 +29,5 @@ struct User: Identifiable, Codable {
 }
 
 extension User {
-    static var MOCK_User = User(id: NSUUID().uuidString, fullname: "Charles Liggins", email: "test@gmail.com")
+    static var MOCK_User = User(id: NSUUID().uuidString, fullname: "Charles Liggins", email: "test@gmail.com",tasks: [], areas: [])
 }

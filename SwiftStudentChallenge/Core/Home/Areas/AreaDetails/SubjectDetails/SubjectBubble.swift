@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SubjectBubble: View {
-    var area: AreaModel
+    var subArea: SubAreaModel
     var tasks: [TasksModel]
     var bgColor: Color
     
@@ -18,10 +18,10 @@ struct SubjectBubble: View {
             VStack{
                 
                     NavigationLink{
-                        DetailedAreaView(title: area.name)
+                        DetailedAreaView(title: subArea.name)
                     } label: {
                         VStack{
-                            Text(area.name)
+                            Text(subArea.name)
                                 .padding(.top,2)
                                 .font(.headline)
                                 .foregroundStyle(Color.black)
@@ -38,6 +38,8 @@ struct SubjectBubble: View {
                                     .foregroundStyle(Color.black)
                               }
                         }
+                        .padding(.top,28)
+                        .padding(.bottom,28)
                         .background(
                         RoundedRectangle(cornerRadius: 20)
                             .fill(bgColor)
@@ -46,17 +48,19 @@ struct SubjectBubble: View {
                             .foregroundStyle(Color.black)
                             .font(.headline)
                         )
+                       
                     }
                 }
+          
             }
         }
     }
 
-#Preview {
-    SubjectBubble(area: AreaModel(id: "12345", name: "Basic Engineering Statistics"),
-                  tasks: [
-                    TasksModel(id: UUID(), dueDate: Date.now, priority: 1, name: "Test"),
-                    TasksModel(id: UUID(), dueDate: Date.now, priority: 3, name: "Syllabus")]
-                  , bgColor: Color(red: 0.4627, green: 0.8392, blue: 1.0))
-}
+//#Preview {
+//    SubjectBubble(area: AreaModel(id: "12345", name: "Basic Engineering Statistics"),
+//                  tasks: [
+//                    TasksModel(id: UUID().uuidString, dueDate: Date.now, priority: 1, name: "Test"),
+//                    TasksModel(id: UUID().uuidString, dueDate: Date.now, priority: 3, name: "Syllabus")]
+//                  , bgColor: Color(red: 0.4627, green: 0.8392, blue: 1.0))
+//}
 

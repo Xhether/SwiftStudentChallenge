@@ -69,6 +69,6 @@ struct TinyTasksBubble: View {
 }
 
 
-#Preview {
-    TinyTasksBubble(task: TasksModel(id: UUID(), dueDate: Date.now, priority: 1, name: "Complete Monday Reading"))
-}
+//#Preview {
+//    TinyTasksBubble(task: TasksModel(id: UUID().uuidString, dueDate: Date.now, priority: 1, name: "Complete Monday Reading"))
+//}

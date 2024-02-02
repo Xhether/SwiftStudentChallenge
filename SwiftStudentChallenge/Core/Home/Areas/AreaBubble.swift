@@ -33,9 +33,9 @@ struct AreaBubble: View {
         }
     }
 }
-
-#Preview {
-    AreaBubble(area: AreaModel(id: "12345", name: "CS 2800"), bgColor: Color(red: 0.4627, green: 0.8392, blue: 1.0))
-}
+//
+//#Preview {
+//    AreaBubble(area: AreaModel(id: "12345", name: "CS 2800"), bgColor: Color(red: 0.4627, green: 0.8392, blue: 1.0))
+//}
 
 

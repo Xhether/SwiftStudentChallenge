@@ -8,10 +8,13 @@
 import SwiftUI
 import SDWebImageSwiftUI
 import SDWebImage
+import PhotosUI
 
 struct ProfileView: View {
-    //  @EnvironmentObject var logistics: LogisticsInfo
     @EnvironmentObject var viewModel: AuthViewModel
+    @State private var avatarItem: PhotosPickerItem?
+    @State private var avatarImage: Image?
+    
     var body: some View{
         if let user = viewModel.currentUser {
             NavigationStack{
@@ -28,7 +31,7 @@ struct ProfileView: View {
                             Home()
                         } label: {
                             Image(systemName: "house")
-                                .font(.system(size: 50, weight: .bold))
+                                .font(.system(size: 40, weight: .bold))
                         }
                         .padding(.trailing, 30)
                         .padding(.bottom, 20)
@@ -37,7 +40,7 @@ struct ProfileView: View {
                             SettingsView()
                         } label: {
                             Image(systemName: "gear")
-                                .font(.system(size: 50, weight: .bold))
+                                .font(.system(size: 40, weight: .bold))
                         }
                         .padding(.trailing, 30)
                         .padding(.bottom, 20)
