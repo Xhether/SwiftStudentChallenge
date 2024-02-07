@@ -11,7 +11,7 @@ struct SubjectBubble: View {
     var subArea: SubAreaModel
     var tasks: [TasksModel]
     var bgColor: Color
-    
+    //"Model" for subject bubble
     var body: some View {
         NavigationStack{
             

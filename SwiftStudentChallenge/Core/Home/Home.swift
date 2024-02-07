@@ -20,7 +20,9 @@ struct Home: View {
         NavigationStack{
             ScrollView(.vertical){
                 VStack {
+                    //header
                     HStack{
+                        
                         Text("Home")
                             .font(.largeTitle)
                             .padding(.leading, 30)
@@ -50,6 +52,7 @@ struct Home: View {
                         
                     }
                     
+                    //popup
                     if $showPopUp.wrappedValue {
                         ZStack (alignment: .center){
                             Color.white
@@ -87,12 +90,12 @@ struct Home: View {
                         .cornerRadius(20).shadow(radius: 20)
                     }
                     
+                    
                     ForEach(areasManager.areas, id: \.self) { area in
                         AreaBubble(area: area, bgColor: Color.fromString(area.colorStr))
-                        
                     }
                     
-                    
+                    //popup
                     Button(action: {
                         self.showPopUp = true
                     }, label: {
@@ -111,14 +114,8 @@ struct Home: View {
                             }
                         }
                     })
-                    
-                    
                 }
-                    
-                    
                     Spacer()
-                    
-                   
                 }
             }
         }

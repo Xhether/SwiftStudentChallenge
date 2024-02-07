@@ -11,6 +11,7 @@ struct DetailedAreaView: View {
     @State private var showPopToday = false
     @State var nestedAreaColor = Color(.systemBackground)
     @State private var topic: String = ""
+    @State private var offset = CGSize.zero
     @StateObject var tasksManager = AuthViewModel()
     @State private var selection = "1"
     
@@ -42,6 +43,8 @@ struct DetailedAreaView: View {
                         .padding(.bottom, 20)
                         .navigationBarBackButtonHidden()
                     }
+                    
+                    //Go to area goals screen
                     HStack(alignment: .center){
                         NavigationLink{
                             AreaGoals(title: title)
@@ -59,6 +62,7 @@ struct DetailedAreaView: View {
                                 .padding(.leading,44)
                         }
                         
+                        //Go to area schedule screen
                         NavigationLink{
                             AreaSchedule()
                         } label: {
@@ -93,7 +97,19 @@ struct DetailedAreaView: View {
                             TasksBubble(task: task)
                         }
                     }
-                    
+                    .offset(CGSize(width: offset.width, height: 0))
+                    .gesture(
+                    DragGesture()
+                        .onChanged { gesture in
+                            offset = gesture.translation
+                        }.onEnded { _ in
+                            withAnimation {
+                                swipeTask(width: offset.width)
+                            }
+                        }
+                    )
+                
+                    //Activates popup
                     Button(action: {
                         self.showPopToday = true
                         
@@ -114,6 +130,7 @@ struct DetailedAreaView: View {
                         }
                     })
                     
+                    //Popup for creating a new area
                     if $showPopToday.wrappedValue {
                         ZStack {
                             Color.white
@@ -170,77 +187,33 @@ struct DetailedAreaView: View {
                         .padding(.leading, 30)
                         .padding(.top, -20)
                         .padding(.trailing, 60)
-                    
-//                    Button(action: {
-//                        self.showPopToday = true
-//                    }, label: {
-//                        ZStack{
-//                            
-//                            RoundedRectangle(cornerRadius: 20)
-//                                .fill(Color.white)
-//                                .stroke(.mint, lineWidth: 2)
-//                                .frame(width: 300, height: 50)
-//                            
-//                            HStack{
-//                                Image(systemName: "plus.circle")
-//                                
-//                                Text("Add Upcoming Task")
-//                                
-//                            }
-//                        }
-//                    })
-//                    
-//                    if $showPopToday.wrappedValue {
-//                        ZStack {
-//                            Color.white
-//                            VStack {
-//                                
-//                                Text("New Area")
-//                                    .font(.headline)
-//                                    .padding(.bottom, 10)
-//                                HStack{
-//                                    Text("Select Topic")
-//                                        .padding(.leading,16)
-//                                    
-//                                    Spacer()
-//                                    
-//                                    TextField("Topic", text: $topic)
-//                                }
-//                                ColorPicker("Select Color", selection: $nestedAreaColor)
-//                                    .padding()
-//                                
-//                                Spacer()
-//                                
-//                                Button(action: {
-//                                    self.showPopUp = false
-//                                    //post request to post a new area
-//                                }, label: {
-//                                    Text("Finish")
-//                                })
-//                            }.padding()
-//                        }
-//                        .pickerStyle(.menu)
-//                        .frame(width: 380, height: 200)
-//                        .cornerRadius(20).shadow(radius: 20)
-//                    }
-//                    
-//                    ForEach(tasksManager.tasks, id: \.self) { task in
-//                        if (!isDateFuture(task.dueDate)){
-//                            TasksBubble(taskName: task.name, endTime:                                                 task.dueDate.formatted())
-//                        }
-//                    }
                 }
                 Spacer()
             }
         }
     }
+    
+    //Function allowing swipe gesture for task, change to add deletion and completion...
+    func swipeTask(width: CGFloat){
+        switch width {
+        case -500...(-300):
+            tasksManager.deleteTask()
+            offset = CGSize(width: -500, height: 0)
+        case 300...500:
+            print("task completed")
+            offset = CGSize(width: 500, height: 0)
+        default:
+            offset = .zero
+        }
+    }
 }
 
-
+//Allows for filtering between dates
 func isDateToday(_ date: Date) -> Bool {
         let calendar = Calendar.current
         return calendar.isDateInToday(date)
     }
+
 
 func isDateFuture(_ date: Date) -> Bool {
         let calendar = Calendar.current

@@ -13,7 +13,6 @@ struct AreasView: View {
     @StateObject var subAreasManager = AuthViewModel()
     @State private var topic: String = ""
     
-    let subjects = ["Discrete Structures", "Multivariable Calculus for Engineers", "FWS: Marx, Nietzsche, Freud", "Physics Mechanics and Heat"]
     let title: String
     
     var body: some View{
@@ -44,7 +43,7 @@ struct AreasView: View {
                 if (subject.areaUnder == title){
                     SubjectBubble(
                         subArea: subject,
-                        tasks: [],
+                        tasks: Array(subAreasManager.tasks.prefix(2)),
                         bgColor: Color.fromString(subject.colorStr)
                     )
                     .padding(.bottom, 12)

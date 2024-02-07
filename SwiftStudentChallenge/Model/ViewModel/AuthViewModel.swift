@@ -14,7 +14,7 @@ import FirebaseFirestoreSwift
 class AuthViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
-    
+    @Published var db = Firestore.firestore()
     @Published private(set) var tasks: [TasksModel] = []
     @Published private(set) var areas: [AreaModel] = []
     @Published private(set) var subAreas: [SubAreaModel] = []
@@ -22,7 +22,7 @@ class AuthViewModel: ObservableObject {
 
     
     init(){
-       self.userSession = Auth.auth().currentUser
+         self.userSession = Auth.auth().currentUser
         
          getTasks()
          getAreas()
@@ -50,13 +50,22 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    func signOut() {}
+    func signOut() {
+        do {
+            try Auth.auth().signOut()
+            self.userSession = nil
+            self.currentUser = nil
+        } catch {
+            print("Debug: Failed to sign user out with error \(error.localizedDescription)")
+        }
+        
+    }
     
     func deleteAccount() {}
     
     //get tasks for signed in user
     func getTasks() {
-        Firestore.firestore().collection("tasks").addSnapshotListener { querySnapshot, error in
+        db.collection("tasks").addSnapshotListener { querySnapshot, error in
             guard let documents = querySnapshot?.documents else {
                 print ("Error fetching doc")
                 return
@@ -80,6 +89,16 @@ class AuthViewModel: ObservableObject {
             try Firestore.firestore().collection("tasks").document().setData(from: newTask)
         } catch {
             print ("Error adding task to firestore: \(error)")
+        }
+    }
+    
+    // delete request for tasks, UPDATE
+    func deleteTask() {
+        do {
+            try db.collection("tasks").document().delete()
+          print("Document successfully removed!")
+        } catch {
+          print("Error removing document: \(error)")
         }
     }
     
@@ -140,7 +159,7 @@ class AuthViewModel: ObservableObject {
     }
     
     func fetchUser() async {
-        print("yoo im here rn dawg chillingf")
+    //  print("yoo im here rn dawg chillingf")
         guard let uid = Auth.auth().currentUser?.uid else { return }
         guard let snapshot = try? await Firestore.firestore().collection("users").document(uid).getDocument() else {return}
         self.currentUser = try? snapshot.data(as: User.self)

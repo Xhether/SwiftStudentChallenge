@@ -11,6 +11,7 @@ struct TasksBubble: View {
     var task: TasksModel
     
     var body: some View {
+        //filters between task priority and changes color, not exactly efficient lol
         if (task.priority == 1){
             HStack{
                 Text(task.name)

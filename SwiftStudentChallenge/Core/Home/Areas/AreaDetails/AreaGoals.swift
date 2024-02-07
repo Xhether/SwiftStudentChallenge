@@ -9,7 +9,6 @@ import SwiftUI
 
 struct AreaGoals: View {
     let title: String
-    //array of goals
     @State var text = ""
     var body: some View {
         VStack{
@@ -41,10 +40,9 @@ struct AreaGoals: View {
                             .fill(Color.white)
                             .stroke(.mint, lineWidth: 2)
                             .frame(width: 340,height: 44)
-                           // .padding(.leading,-40)
                     )
 
-                
+                //Sample set of Goals
                 Text(" - Attend Every Lecture")
                     .padding()
                     .font(.headline)

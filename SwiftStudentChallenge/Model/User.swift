@@ -11,7 +11,6 @@ import SwiftUI
 struct User: Identifiable, Codable {
     let id: String
     let fullname: String
-    //let pfp:Image
     let email: String
     let tasks: [TasksModel]
     let areas: [AreaModel]

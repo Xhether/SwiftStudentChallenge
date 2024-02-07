@@ -103,7 +103,11 @@ struct SettingsView: View {
                         
                         Spacer()
                         
-                        Image(systemName: "signpost.right")
+                        Button{
+                            viewModel.signOut()
+                        }label: {
+                            Image(systemName: "signpost.right")
+                        }
                         
                         
                         Spacer()

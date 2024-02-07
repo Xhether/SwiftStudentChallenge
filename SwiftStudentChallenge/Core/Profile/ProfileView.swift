@@ -19,6 +19,7 @@ struct ProfileView: View {
         if let user = viewModel.currentUser {
             NavigationStack{
                 VStack {
+                    //Header
                     HStack{
                         Text("Profile")
                             .font(.largeTitle)
@@ -68,6 +69,8 @@ struct ProfileView: View {
                         .padding(.leading, 30)
                         .padding(.trailing, 30)
                         .padding(.bottom, 30)
+                    
+                    //NOTE: IMPLEMENT
                     
                     //                Text("You've completed \(logistics.onTimeTasksCompleted) tasks this month")
                     //
