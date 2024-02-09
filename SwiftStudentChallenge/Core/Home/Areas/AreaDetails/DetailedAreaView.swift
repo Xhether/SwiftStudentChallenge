@@ -97,17 +97,17 @@ struct DetailedAreaView: View {
                             TasksBubble(task: task)
                         }
                     }
-                    .offset(CGSize(width: offset.width, height: 0))
-                    .gesture(
-                    DragGesture()
-                        .onChanged { gesture in
-                            offset = gesture.translation
-                        }.onEnded { _ in
-                            withAnimation {
-                                swipeTask(width: offset.width)
-                            }
-                        }
-                    )
+//                    .offset(CGSize(width: offset.width, height: 0))
+//                    .gesture(
+//                    DragGesture()
+//                        .onChanged { gesture in
+//                            offset = gesture.translation
+//                        }.onEnded { _ in
+//                            withAnimation {
+//                                swipeTask(width: offset.width)
+//                            }
+//                        }
+//                    )
                 
                     //Activates popup
                     Button(action: {
@@ -197,7 +197,6 @@ struct DetailedAreaView: View {
     func swipeTask(width: CGFloat){
         switch width {
         case -500...(-300):
-            tasksManager.deleteTask()
             offset = CGSize(width: -500, height: 0)
         case 300...500:
             print("task completed")

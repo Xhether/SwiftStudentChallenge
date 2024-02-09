@@ -10,6 +10,7 @@ import SwiftUI
 struct AreaSchedule: View {
     @State var selectedDate: Date = Date()
     var body: some View {
+        
         VStack() {
             
             Text("Schedule for Discrete Structures")

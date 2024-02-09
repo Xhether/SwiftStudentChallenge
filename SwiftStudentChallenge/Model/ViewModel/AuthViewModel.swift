@@ -86,19 +86,20 @@ class AuthViewModel: ObservableObject {
         do {
             let newTask = TasksModel(id: "\(UUID())", dueDate: dueDate, areaUnder: areaUnder, priority: priority, name: name)
         
-            try Firestore.firestore().collection("tasks").document().setData(from: newTask)
+            try Firestore.firestore().collection("tasks").document(newTask.id).setData(from: newTask)
         } catch {
             print ("Error adding task to firestore: \(error)")
         }
     }
     
     // delete request for tasks, UPDATE
-    func deleteTask() {
-        do {
-            try db.collection("tasks").document().delete()
-          print("Document successfully removed!")
-        } catch {
-          print("Error removing document: \(error)")
+    func deleteTask(id: String)  {
+        db.collection("tasks").document(id).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document removed!")
+            }
         }
     }
     

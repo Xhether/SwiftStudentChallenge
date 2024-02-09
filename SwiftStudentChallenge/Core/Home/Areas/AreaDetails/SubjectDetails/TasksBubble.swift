@@ -9,15 +9,28 @@ import SwiftUI
 
 struct TasksBubble: View {
     var task: TasksModel
+    @StateObject var manager = AuthViewModel()
+
     
     var body: some View {
         //filters between task priority and changes color, not exactly efficient lol
         if (task.priority == 1){
             HStack{
+                
+                Button {
+                    manager.deleteTask(id: task.id)
+                } label: {
+                    Circle()
+                        .fill(Color.white)
+                        .stroke(.black, lineWidth: 2)
+                        .frame(width: 40,height: 40)
+                        .opacity(0.6)
+                }
+
                 Text(task.name)
                     .font(.headline)
                     .fontWeight(.bold)
-                    .frame(width: 188)
+                    .frame(width: 128)
                 
                 Divider()
                     .frame(width: 2, height: 72)
@@ -41,10 +54,20 @@ struct TasksBubble: View {
         
         if (task.priority == 2){
             HStack{
+                Button {
+                    manager.deleteTask(id: task.id)
+                } label: {
+                    Circle()
+                        .fill(Color.white)
+                        .stroke(.black, lineWidth: 2)
+                        .frame(width: 40,height: 40)
+                        .opacity(0.6)
+                }
+
                 Text(task.name)
                     .font(.headline)
                     .fontWeight(.bold)
-                    .frame(width: 188)
+                    .frame(width: 128)
                 
                 Divider()
                     .frame(width: 2, height: 72)
@@ -68,10 +91,20 @@ struct TasksBubble: View {
         
         if (task.priority == 3){
             HStack{
+                Button {
+                    manager.deleteTask(id: task.id)
+                } label: {
+                    Circle()
+                        .fill(Color.white)
+                        .stroke(.black, lineWidth: 2)
+                        .frame(width: 40,height: 40)
+                        .opacity(0.6)
+                }
+
                 Text(task.name)
                     .font(.headline)
                     .fontWeight(.bold)
-                    .frame(width: 188)
+                    .frame(width: 128)
                 
                 Divider()
                     .frame(width: 2, height: 72)
@@ -95,10 +128,20 @@ struct TasksBubble: View {
         
         if (task.priority == 4){
             HStack{
+                Button {
+                    manager.deleteTask(id: task.id)
+                } label: {
+                    Circle()
+                        .fill(Color.white)
+                        .stroke(.black, lineWidth: 2)
+                        .frame(width: 40,height: 40)
+                        .opacity(0.6)
+                }
+
                 Text(task.name)
                     .font(.headline)
                     .fontWeight(.bold)
-                    .frame(width: 188)
+                    .frame(width: 128)
                 
                 Divider()
                     .frame(width: 2, height: 72)
