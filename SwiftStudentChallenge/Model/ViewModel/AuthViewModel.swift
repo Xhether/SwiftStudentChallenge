@@ -8,6 +8,7 @@
 import Foundation
 import Firebase
 import SwiftUI
+import FirebaseStorage
 import FirebaseFirestoreSwift
 
 @MainActor
@@ -15,6 +16,8 @@ class AuthViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
     @Published var db = Firestore.firestore()
+    @Published private(set) var users: [User] = []
+    @Published private(set) var goals: [Goal] = []
     @Published private(set) var tasks: [TasksModel] = []
     @Published private(set) var areas: [AreaModel] = []
     @Published private(set) var subAreas: [SubAreaModel] = []
@@ -26,7 +29,9 @@ class AuthViewModel: ObservableObject {
         
          getTasks()
          getAreas()
+         getGoals()
          getSubAreas()
+         getUsers()
         
         Task{
             await fetchUser()
@@ -41,13 +46,36 @@ class AuthViewModel: ObservableObject {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            let user = User(id: result.user.uid, fullname: fullname, email: email, tasks: [], areas: [])
+            let user = User(id: result.user.uid, fullname: fullname,email: email, image: "", tasks: [], areas: [])
             let encodedUser = try Firestore.Encoder().encode(user)
             try await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
             await fetchUser()
         } catch {
             print("Debug: failed to create user with error \(error.localizedDescription)")
         }
+    }
+    
+    func getUsers() {
+        Firestore.firestore().collection("users").addSnapshotListener { querySnapshot, error in
+            guard let documents = querySnapshot?.documents else {
+                print ("Error fetching doc")
+                return
+            }
+            self.users = documents.compactMap { document -> User? in
+                do {
+                    return try document.data(as: User.self)
+                } catch {
+                    print("Error decoding as user")
+                    return nil
+                }
+            }
+        }
+    }
+    
+    //set the users picture
+    func setPicture(image: String) {
+        let x = db.collection("users").document(self.currentUser!.id).documentID
+        db.collection("users").document(x).updateData(["image":image])
     }
     
     func signOut() {
@@ -58,7 +86,6 @@ class AuthViewModel: ObservableObject {
         } catch {
             print("Debug: Failed to sign user out with error \(error.localizedDescription)")
         }
-        
     }
     
     func deleteAccount() {}
@@ -148,6 +175,7 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
+
     
     func makeSubArea(name: String, color: Color, areaUnder: String) {
         do {
@@ -159,6 +187,35 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    func makeGoal(name: String, areaUnder: String) {
+        do {
+            let newGoal = Goal(id: "\(UUID())", areaUnder: areaUnder, name: name)
+            
+            try Firestore.firestore().collection("goals").document().setData(from: newGoal)
+        } catch {
+            print ("Error adding goal to firestore: \(error)")
+        }
+    }
+    
+    func getGoals() {
+        db.collection("goals").addSnapshotListener { querySnapshot, error in
+            guard let documents = querySnapshot?.documents else {
+                print ("Error fetching doc")
+                return
+            }
+            self.goals = documents.compactMap { document -> Goal? in
+                do {
+                    return try document.data(as: Goal.self)
+                } catch {
+                    print("Error decoding as task")
+                    return nil
+                }
+            }
+        }
+    }
+    
+    
+    
     func fetchUser() async {
     //  print("yoo im here rn dawg chillingf")
         guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -166,5 +223,5 @@ class AuthViewModel: ObservableObject {
         self.currentUser = try? snapshot.data(as: User.self)
         }
 
-    
+  
 }

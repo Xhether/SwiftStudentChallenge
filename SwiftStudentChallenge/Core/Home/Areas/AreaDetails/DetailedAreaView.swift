@@ -9,18 +9,18 @@ import SwiftUI
 
 struct DetailedAreaView: View {
     @State private var showPopToday = false
+    @State private var showPopLater = false
     @State var nestedAreaColor = Color(.systemBackground)
     @State private var topic: String = ""
     @State private var offset = CGSize.zero
+    @State var selectedDate: Date = Date()
     @StateObject var tasksManager = AuthViewModel()
     @State private var selection = "1"
     
     let priorities = ["1", "2", "3", "4"]
 
     let title: String
-    
-    var sampleTasks = ["Read Chapter 1 of Textbook", "Complete Lab Report #1", "Complete Syllabus Quiz", "Complete PSET #1", "Read 20 Pages of the Interpolation of Dreams"]
-    
+        
     var body: some View {
         NavigationStack{
             ScrollView(.vertical){
@@ -97,19 +97,8 @@ struct DetailedAreaView: View {
                             TasksBubble(task: task)
                         }
                     }
-//                    .offset(CGSize(width: offset.width, height: 0))
-//                    .gesture(
-//                    DragGesture()
-//                        .onChanged { gesture in
-//                            offset = gesture.translation
-//                        }.onEnded { _ in
-//                            withAnimation {
-//                                swipeTask(width: offset.width)
-//                            }
-//                        }
-//                    )
                 
-                    //Activates popup
+                    //Activates popup, FOR TODAY TASKS
                     Button(action: {
                         self.showPopToday = true
                         
@@ -135,7 +124,6 @@ struct DetailedAreaView: View {
                         ZStack {
                             Color.white
                             VStack {
-                                
                                 Text("New Area")
                                     .font(.headline)
                                     .padding(.bottom, 10)
@@ -187,6 +175,88 @@ struct DetailedAreaView: View {
                         .padding(.leading, 30)
                         .padding(.top, -20)
                         .padding(.trailing, 60)
+                    
+                    ForEach(tasksManager.tasks, id: \.self) { task in
+                        if (task.areaUnder == title && isDateFuture(task.dueDate)){
+                            TasksBubble(task: task)
+                            //
+                        }
+                    }
+                    
+                    //Add task button for UPCOMING tasks
+                    Button(action: {
+                        self.showPopLater = true
+                        
+                    }, label: {
+                        ZStack{
+                            
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.white)
+                                .stroke(.mint, lineWidth: 2)
+                                .frame(width: 300, height: 50)
+                            
+                            HStack{
+                                Image(systemName: "plus.circle")
+                                
+                                Text("Add Task")
+                                
+                            }
+                        }
+                    })
+                
+                
+                    if $showPopLater.wrappedValue {
+                        ZStack {
+                            Color.white
+                            VStack {
+                                Text("New Area")
+                                    .font(.headline)
+                                    .padding(.bottom, 10)
+                                HStack{
+                                    Text("Type Name")
+                                        .padding(.leading,16)
+                                    
+                                    Spacer()
+                                    
+                                    TextField("Name", text: $topic)
+                                }
+                                HStack{
+                                    Text("Select Priority")
+                                        .padding(.leading,16)
+                                    
+                                    Spacer()
+                                    
+                                    Picker("Priority", selection: $selection) {
+                                        ForEach(priorities, id: \.self) {
+                                            Text($0)
+                                        }
+                                    }
+                                }
+                                
+                                //Add Calendar, with title
+                                
+                                Divider().frame(height: 1)
+                                
+                                DatePicker("Select Date", selection: $selectedDate, displayedComponents: [.date])
+                                    .padding(.horizontal)
+                                    .datePickerStyle(.graphical)
+                                
+                                Divider()
+                                
+                                Spacer()
+                                
+                                Button(action: {
+                                    self.showPopLater = false
+                                    tasksManager.makeTasks(name: topic, priority: Int(selection) ?? 1, dueDate: selectedDate, areaUnder: title)
+                                }, label: {
+                                    Text("Finish")
+                                })
+                            }.padding()
+                        }
+                        .pickerStyle(.menu)
+                        .frame(width: 380, height: 500)
+                        .cornerRadius(20).shadow(radius: 20)
+                    }
                 }
                 Spacer()
             }
@@ -218,7 +288,7 @@ func isDateFuture(_ date: Date) -> Bool {
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
         let target = calendar.startOfDay(for: date)
-        return today > target
+        return today < target
     }
 
 #Preview {

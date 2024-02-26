@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2E18E5E72B3FB87100465739 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E18E5E62B3FB87100465739 /* LoginView.swift */; };
 		2E18E5E92B3FB87F00465739 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E18E5E82B3FB87F00465739 /* SignUpView.swift */; };
+		2E2F0B302B7E6339007949F6 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2F0B2F2B7E6339007949F6 /* Goal.swift */; };
 		2E309ABD2B4C7BD400C09BD4 /* TasksModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E309ABC2B4C7BD400C09BD4 /* TasksModel.swift */; };
 		2E309ABF2B4C7C4800C09BD4 /* AreaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E309ABE2B4C7C4800C09BD4 /* AreaModel.swift */; };
 		2E7718C12B5C659A00A3060D /* AreaBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7718C02B5C659A00A3060D /* AreaBubble.swift */; };
@@ -62,11 +63,14 @@
 		2EDC86DC2B47B68800CC44E1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC86DB2B47B68800CC44E1 /* SettingsView.swift */; };
 		2EDC86DF2B47B81E00CC44E1 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC86DE2B47B81E00CC44E1 /* Home.swift */; };
 		2EDC86F52B49FE6B00CC44E1 /* LogisticsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC86F42B49FE6B00CC44E1 /* LogisticsInfo.swift */; };
+		2EE9519D2B8BD8E100D491CC /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE9519C2B8BD8E100D491CC /* FirebaseManager.swift */; };
+		2EE9519F2B8BF06300D491CC /* ProfilePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE9519E2B8BF06300D491CC /* ProfilePicture.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2E18E5E62B3FB87100465739 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		2E18E5E82B3FB87F00465739 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		2E2F0B2F2B7E6339007949F6 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		2E309ABC2B4C7BD400C09BD4 /* TasksModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksModel.swift; sourceTree = "<group>"; };
 		2E309ABE2B4C7C4800C09BD4 /* AreaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaModel.swift; sourceTree = "<group>"; };
 		2E7718C02B5C659A00A3060D /* AreaBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaBubble.swift; sourceTree = "<group>"; };
@@ -91,6 +95,8 @@
 		2EDC86DB2B47B68800CC44E1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		2EDC86DE2B47B81E00CC44E1 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		2EDC86F42B49FE6B00CC44E1 /* LogisticsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogisticsInfo.swift; sourceTree = "<group>"; };
+		2EE9519C2B8BD8E100D491CC /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		2EE9519E2B8BF06300D491CC /* ProfilePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicture.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,7 +181,9 @@
 			children = (
 				2EDC86C92B434C2B00CC44E1 /* ViewModel */,
 				2EDC86CF2B47A45000CC44E1 /* User.swift */,
+				2EE9519E2B8BF06300D491CC /* ProfilePicture.swift */,
 				2E309ABC2B4C7BD400C09BD4 /* TasksModel.swift */,
+				2E2F0B2F2B7E6339007949F6 /* Goal.swift */,
 				2E309ABE2B4C7C4800C09BD4 /* AreaModel.swift */,
 				2E938E932B6B60AB0007AB37 /* SubAreaModel.swift */,
 			);
@@ -274,6 +282,7 @@
 			isa = PBXGroup;
 			children = (
 				2EDC86CA2B434C5E00CC44E1 /* AuthViewModel.swift */,
+				2EE9519C2B8BD8E100D491CC /* FirebaseManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -402,11 +411,13 @@
 				2EDC86F52B49FE6B00CC44E1 /* LogisticsInfo.swift in Sources */,
 				2EBFE7A12B533D5700C2766F /* AreaSchedule.swift in Sources */,
 				2EBFE79A2B533D1F00C2766F /* AreasView.swift in Sources */,
+				2EE9519F2B8BF06300D491CC /* ProfilePicture.swift in Sources */,
 				2E7718C12B5C659A00A3060D /* AreaBubble.swift in Sources */,
 				2E18E5E72B3FB87100465739 /* LoginView.swift in Sources */,
 				2EDC86DC2B47B68800CC44E1 /* SettingsView.swift in Sources */,
 				2EBFE79F2B533D4900C2766F /* AreaGoals.swift in Sources */,
 				2E7718C82B5C770800A3060D /* TinyTasksBubble.swift in Sources */,
+				2EE9519D2B8BD8E100D491CC /* FirebaseManager.swift in Sources */,
 				2EBFE79D2B533D3A00C2766F /* DetailedAreaView.swift in Sources */,
 				2EC8DCDC2B340060009A2021 /* ContentView.swift in Sources */,
 				2E309ABD2B4C7BD400C09BD4 /* TasksModel.swift in Sources */,
@@ -415,6 +426,7 @@
 				2EDC86D22B47ABC200CC44E1 /* SettingsRowView.swift in Sources */,
 				2E7718CA2B5F253F00A3060D /* TasksBubble.swift in Sources */,
 				2EDC86CE2B479B6700CC44E1 /* ProfileView.swift in Sources */,
+				2E2F0B302B7E6339007949F6 /* Goal.swift in Sources */,
 				2EC8DCDA2B340060009A2021 /* SwiftStudentChallengeApp.swift in Sources */,
 				2EDC86D02B47A45000CC44E1 /* User.swift in Sources */,
 			);

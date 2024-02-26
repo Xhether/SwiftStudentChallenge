@@ -10,6 +10,8 @@ import SwiftUI
 struct AreaGoals: View {
     let title: String
     @State var text = ""
+    @StateObject var goalsManager = AuthViewModel()
+    
     var body: some View {
         VStack{
             Text("Goals for \(title)")
@@ -27,13 +29,14 @@ struct AreaGoals: View {
                         .font(.headline)
                     
                     //Post new Goal
-                    Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                    Button {
+                        goalsManager.makeGoal(name: text, areaUnder: title)
+                    } label: {
                         Image(systemName: "cursorarrow.click.2")
                             .padding(.trailing,48)
                         
+                    }
                     })
-                   
-                    
                 })
                     .background(
                         RoundedRectangle(cornerRadius: 12.0)
@@ -42,30 +45,20 @@ struct AreaGoals: View {
                             .frame(width: 340,height: 44)
                     )
 
-                //Sample set of Goals
-                Text(" - Attend Every Lecture")
-                    .padding()
-                    .font(.headline)
+                //All Goals
+                ForEach(goalsManager.goals, id: \.self) { goal in
+                    if (goal.areaUnder == title){
+                        HStack{
+                            Image(systemName: "pencil")
+                            Text(goal.name)
+                                .font(.headline)
+                            Image(systemName: "x.circle")
+                        }
+                        .padding(.top)
+                    }
+                }
                 
-                Text(" - Go to Office hours at least twice monthly")
-                    .padding()
-                    .font(.headline)
-                
-                Text(" - Form a consistent study group")
-                    .padding()
-                    .font(.headline)
-                
-                Text(" - Get an A")
-                    .padding()
-                    .font(.headline)
-                
-                Text(" - Start Homework as soon as it's assigned")
-                    .padding()
-                    .font(.headline)
-                
-                Text("")
-                    .font(.headline)
-            })
+            
             
             //add section to see goals of friends???
             
